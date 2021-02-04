@@ -1031,7 +1031,7 @@
 				}
 			}
 		}
-		
+		this.addInfinicorePalette();
 		this.addGeneralPalette(this.customEntries == null);
 		this.addMiscPalette(false);	
 		this.addAdvancedPalette(false);

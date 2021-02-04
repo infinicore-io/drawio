@@ -94,6 +94,7 @@
 		<jscomp compilationLevel="simple" debug="false" forceRecompile="true" output="${basedir}/sidebar.min.js">
 			<sources dir="${war.dir}/js/diagramly/sidebar">
 				<file name="Sidebar.js" />
+				
 				<file name="Sidebar-ActiveDirectory.js" />
 				<file name="Sidebar-Advanced.js" />
 				<file name="Sidebar-AlliedTelesis.js" />
@@ -133,6 +134,7 @@
 				<file name="Sidebar-Infographic.js" />
 				<file name="Sidebar-Ios.js" />
 				<file name="Sidebar-Ios7.js" />
+				<file name="Sidebar-Infinicore.js" />
 				<file name="Sidebar-Kubernetes.js" />
 				<file name="Sidebar-LeanMapping.js" />
 				<file name="Sidebar-Mockup.js" />

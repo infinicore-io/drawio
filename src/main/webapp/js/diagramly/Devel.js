@@ -6,52 +6,50 @@
  * is used for development mode where the JS is in separate
  * files and the mxClient.js loads other files.
  */
-if (!mxIsElectron && location.protocol !== 'http:')
-{
-	(function()
-	{
+if (!mxIsElectron && location.protocol !== 'http:') {
+	(function () {
 		var csp = 'default-src \'self\'; ' +
 			// storage.googleapis.com is needed for workbox-service-worker
 			'script-src %script-src% \'self\' https://viewer.diagrams.net https://storage.googleapis.com ' +
-				'https://apis.google.com https://*.pusher.com https://code.jquery.com ' +
-				// Below are the SHAs of the two script blocks in index.html.
-				// These must be updated here and in the CDN after changes.
-				//----------------------------------------------------------//
-				//------------- Bootstrap script in index.html -------------//
-				//----------------------------------------------------------//
-				'\'sha256-8HtpzsH4zj5+RKfTWMxPmWJKBu0OYbn+WuPrLbVky+g=\' ' +
-				// Version 14.1.1
-				'\'sha256-gCA3yqbX5kV5cXQOyvSd4v54e8cOLCBlaKU4tuhJF3Y=\' ' +
-				// Version 14.0.1
-				'\'sha256-ZMnCMK9Jg5ijd0Viqw4KAFn39HeC1LrVwervb9uC7Mo=\' ' +
-				// Version 14.0.0
-				'\'sha256-KgVey3Yy0LCtaUZnD77KXAark2kZ3wS5HGa+tyAkR28=\' ' +
-				// Version 13.8.2
-				'\'sha256-1k6pyjDIKgd1KTCRcmDfV6Yc9vgQexHRTiO4zUBoKg8=\' ' +
-				// Version 13.8.1
-				'\'sha256-/fZb/J4FQmI/TwyxqJbvALWSyGVEvnTrlj4ZTzZNKzI=\' ' +
-				// Version 13.7.9
-				'\'sha256-P4E8pNUYsln6/EUZppjCCe8y8lelBYTfsSyLjjFCE5g=\' ' +
-				// Version 13.7.5
-				'\'sha256-+CrvFhadGyk1VjhHM/t3R88LNSEKManW3TGSZi9fmHQ=\' ' +
-				// Versions before 13.7.5
-				'\'sha256-JqdgAC+ydIDMtmQclZEqgbw94J4IeABIfXAxwEJGDJs=\' ' +
-				//---------------------------------------------------------//
-				//------------- App.main script in index.html -------------//
-				//---------------------------------------------------------//
-				// Version 13.8.2
-				'\'sha256-vS/MxlVD7nbY7AnV+0t1Ap338uF7vrcs7y23KjERhKc=\' ' +
-				// Version 13.7.5
-				'\'sha256-dIEi9UhRQPcyoE9/RPfkIPLe2mSS8oQzwabGMLAZzGE=\' ' +
-				// Versions before 13.7.5
-				'\'sha256-4Dg3/NrB8tLC7TUSCbrtUDWD/J6bSLka01GHn+qtNZ0=\' ' +
-				//---------------------------------------------------------//
-				'; ' +
+			'https://apis.google.com https://*.pusher.com https://code.jquery.com ' +
+			// Below are the SHAs of the two script blocks in index.html.
+			// These must be updated here and in the CDN after changes.
+			//----------------------------------------------------------//
+			//------------- Bootstrap script in index.html -------------//
+			//----------------------------------------------------------//
+			'\'sha256-8HtpzsH4zj5+RKfTWMxPmWJKBu0OYbn+WuPrLbVky+g=\' ' +
+			// Version 14.1.1
+			'\'sha256-gCA3yqbX5kV5cXQOyvSd4v54e8cOLCBlaKU4tuhJF3Y=\' ' +
+			// Version 14.0.1
+			'\'sha256-ZMnCMK9Jg5ijd0Viqw4KAFn39HeC1LrVwervb9uC7Mo=\' ' +
+			// Version 14.0.0
+			'\'sha256-KgVey3Yy0LCtaUZnD77KXAark2kZ3wS5HGa+tyAkR28=\' ' +
+			// Version 13.8.2
+			'\'sha256-1k6pyjDIKgd1KTCRcmDfV6Yc9vgQexHRTiO4zUBoKg8=\' ' +
+			// Version 13.8.1
+			'\'sha256-/fZb/J4FQmI/TwyxqJbvALWSyGVEvnTrlj4ZTzZNKzI=\' ' +
+			// Version 13.7.9
+			'\'sha256-P4E8pNUYsln6/EUZppjCCe8y8lelBYTfsSyLjjFCE5g=\' ' +
+			// Version 13.7.5
+			'\'sha256-+CrvFhadGyk1VjhHM/t3R88LNSEKManW3TGSZi9fmHQ=\' ' +
+			// Versions before 13.7.5
+			'\'sha256-JqdgAC+ydIDMtmQclZEqgbw94J4IeABIfXAxwEJGDJs=\' ' +
+			//---------------------------------------------------------//
+			//------------- App.main script in index.html -------------//
+			//---------------------------------------------------------//
+			// Version 13.8.2
+			'\'sha256-vS/MxlVD7nbY7AnV+0t1Ap338uF7vrcs7y23KjERhKc=\' ' +
+			// Version 13.7.5
+			'\'sha256-dIEi9UhRQPcyoE9/RPfkIPLe2mSS8oQzwabGMLAZzGE=\' ' +
+			// Versions before 13.7.5
+			'\'sha256-4Dg3/NrB8tLC7TUSCbrtUDWD/J6bSLka01GHn+qtNZ0=\' ' +
+			//---------------------------------------------------------//
+			'; ' +
 			'connect-src %connect-src% \'self\' https://*.draw.io https://*.diagrams.net ' +
-				'https://*.googleapis.com wss://*.pusher.com https://*.pusher.com ' +
-				'https://api.github.com https://raw.githubusercontent.com https://gitlab.com ' +
-				'https://graph.microsoft.com https://*.sharepoint.com  https://*.1drv.com ' +
-				'https://*.google.com https://fonts.gstatic.com https://fonts.googleapis.com; ' +
+			'https://*.googleapis.com wss://*.pusher.com https://*.pusher.com ' +
+			'https://api.github.com https://raw.githubusercontent.com https://gitlab.com ' +
+			'https://graph.microsoft.com https://*.sharepoint.com  https://*.1drv.com ' +
+			'https://*.google.com https://fonts.gstatic.com https://fonts.googleapis.com; ' +
 			// font-src about: is required for MathJax HTML-CSS output with STIX
 			'img-src * data:; media-src * data:; font-src * about:; ' +
 			// www.draw.io required for browser data migration to app.diagrams.net and
@@ -70,13 +68,12 @@ if (!mxIsElectron && location.protocol !== 'http:')
 			replace(/  /g, ' ');
 		mxmeta(null, devCsp, 'Content-Security-Policy');
 
-		if (urlParams['print-csp'] == '1')
-		{
+		if (urlParams['print-csp'] == '1') {
 			console.log('Content-Security-Policy')
 			console.log('app.diagrams.net:',
 				csp.replace(/%script-src%/g, 'https://www.dropbox.com https://api.trello.com').
-				replace(/%connect-src%/g, 'https://*.dropboxapi.com https://api.trello.com').
-				replace(/%frame-src%/g, '').
+					replace(/%connect-src%/g, 'https://*.dropboxapi.com https://api.trello.com').
+					replace(/%frame-src%/g, '').
 					replace(/%style-src%/g, '').
 					replace(/  /g, ' '));
 			console.log('ac.draw.io:',
@@ -92,12 +89,12 @@ if (!mxIsElectron && location.protocol !== 'http:')
 					replace(/%connect-src%/g, '').
 					replace(/  /g, ' '));
 			console.log('import.diagrams.net:', 'default-src \'self\'; worker-src blob:; img-src \'self\' blob: data: https://www.lucidchart.com ' +
-					'https://app.lucidchart.com; style-src \'self\' \'unsafe-inline\'; frame-src https://www.lucidchart.com https://app.lucidchart.com;');
+				'https://app.lucidchart.com; style-src \'self\' \'unsafe-inline\'; frame-src https://www.lucidchart.com https://app.lucidchart.com;');
 			console.log('Development:', devCsp)
 		}
 	})();
 }
-			
+
 mxscript(drawDevUrl + 'js/cryptojs/aes.min.js');
 mxscript(drawDevUrl + 'js/spin/spin.min.js');
 mxscript(drawDevUrl + 'js/deflate/pako.min.js');
@@ -108,19 +105,20 @@ mxscript(drawDevUrl + 'js/croppie/croppie.min.js');
 mxscript(drawDevUrl + 'js/rough/rough.min.js');
 
 // Uses grapheditor from devhost
-mxscript(geBasePath +'/Editor.js');
-mxscript(geBasePath +'/EditorUi.js');
-mxscript(geBasePath +'/Sidebar.js');
-mxscript(geBasePath +'/Graph.js');
-mxscript(geBasePath +'/Format.js');
-mxscript(geBasePath +'/Shapes.js');
-mxscript(geBasePath +'/Actions.js');
-mxscript(geBasePath +'/Menus.js');
-mxscript(geBasePath +'/Toolbar.js');
-mxscript(geBasePath +'/Dialogs.js');
+mxscript(geBasePath + '/Editor.js');
+mxscript(geBasePath + '/EditorUi.js');
+mxscript(geBasePath + '/Sidebar.js');
+mxscript(geBasePath + '/Graph.js');
+mxscript(geBasePath + '/Format.js');
+mxscript(geBasePath + '/Shapes.js');
+mxscript(geBasePath + '/Actions.js');
+mxscript(geBasePath + '/Menus.js');
+mxscript(geBasePath + '/Toolbar.js');
+mxscript(geBasePath + '/Dialogs.js');
 
 // Loads main classes
 mxscript(drawDevUrl + 'js/diagramly/sidebar/Sidebar.js');
+mxscript(drawDevUrl + 'js/diagramly/sidebar/Sidebar-Infinicore.js');
 mxscript(drawDevUrl + 'js/diagramly/sidebar/Sidebar-ActiveDirectory.js');
 mxscript(drawDevUrl + 'js/diagramly/sidebar/Sidebar-Advanced.js');
 mxscript(drawDevUrl + 'js/diagramly/sidebar/Sidebar-AlliedTelesis.js');
@@ -245,8 +243,7 @@ mxscript(drawDevUrl + 'js/jszip/jszip.min.js');
 mxscript(drawDevUrl + 'js/diagramly/graphml/mxGraphMlCodec.js');
 
 // Org Chart Layout
-if (urlParams['orgChartDev'] == '1')
-{
+if (urlParams['orgChartDev'] == '1') {
 	mxscript(drawDevUrl + 'js/orgchart/bridge.min.js');
 	mxscript(drawDevUrl + 'js/orgchart/bridge.collections.min.js');
 	mxscript(drawDevUrl + 'js/orgchart/OrgChart.Layout.min.js');
