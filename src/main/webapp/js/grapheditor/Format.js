@@ -52,7 +52,8 @@ Format.prototype.init = function()
 	this.update = mxUtils.bind(this, function(sender, evt)
 	{
 		this.clearSelectionState();
-		this.refresh();
+		this.refresh.apply(this, arguments);
+		// this.refresh(arguments);
 	});
 	
 	graph.getSelectionModel().addListener(mxEvent.CHANGE, this.update);
@@ -564,12 +565,38 @@ Format.prototype.refresh = function()
 		}
 		else
 		{
+			////////////////////// ADD INFINICORE CONTENT ////////////////////
+			if(
+				arguments[0] && 
+				arguments[0].cells && 
+				arguments[0].cells.length && 
+				arguments[0].cells[0].style.match(/shape\=[^\.\=]+?\.infinicore\.flowdirector\.([^\,\;\?]+)/)
+			){
+				var cType = arguments[0].cells[0].style.match(/shape\=[^\.\=]+?\.infinicore\.flowdirector\.([^\,\;\?]+)/)[1];
+				var label0 = label.cloneNode(false);
+				label0.style.borderLeftWidth = '0px';
+				mxUtils.write(label0, 'Properties');
+				div.appendChild(label0);
+				var infPanel = div.cloneNode(false);
+				infPanel.style.display = 'none';
+				//// design panel
+				// this.panels.push(new StyleFormatPanel(this, ui, stylePanel));
+				var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, cType);
+				this.panels.push(panelObj);
+				this.container.appendChild(infPanel);
+	
+				addClickHandler(label0, infPanel, idx++);
+			}
+			
+			////////////////////// END ADD ////////////////////
+
 			label.style.borderLeftWidth = '0px';
 			mxUtils.write(label, mxResources.get('style'));
 			div.appendChild(label);
 			
 			var stylePanel = div.cloneNode(false);
 			stylePanel.style.display = 'none';
+			//// design panel
 			this.panels.push(new StyleFormatPanel(this, ui, stylePanel));
 			this.container.appendChild(stylePanel);
 
@@ -6627,3 +6654,44 @@ DiagramFormatPanel.prototype.destroy = function()
 		this.gridEnabledListener = null;
 	}
 };
+
+
+
+/**
+ * Adds the infinicore menu items to the given menu and parent.
+ */
+InfinicoreFormatPanel = function(format, editorUi, container, type)
+{
+	BaseFormatPanel.call(this, format, editorUi, container);
+	this.type = type;
+	this.init();
+};
+
+mxUtils.extend(InfinicoreFormatPanel, BaseFormatPanel);
+
+/**
+ * init
+ */
+InfinicoreFormatPanel.prototype.init = function()
+{
+	this.container.innerHTML = `
+	<div>
+		<div style='margin:5px'>
+			<div style='display:inline-block; width:66px;'>Type: </div>
+			<div style='display:inline-block;'>`+this.type+`</div>
+		</div>
+		<div style='margin:5px'>
+			<div style='display:inline-block; width:66px;'>Name: </div>
+			<div style='display:inline-block;'><input type='text' placeholder='Please set component name'/></div>
+		</div>
+		<div style='margin:5px'>
+			<div style='display:inline-block; width:66px;'>Enable: </div>
+			<div style='display:inline-block;'>
+				<label>
+				<input type='checkbox'/>
+				</label>
+			</div>
+		</div>
+	</div>
+	`;
+}
