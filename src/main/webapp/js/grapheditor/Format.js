@@ -6681,23 +6681,12 @@ InfinicoreFormatPanel.prototype.init = function()
 		return;
 	}
 	this.container.innerHTML = `
-	<div>
-		<div style='margin:5px'>
-			<div style='display:inline-block; width:66px;'>Type: </div>
-			<div style='display:inline-block;'>`+this.type+`</div>
-		</div>
-		<div style='margin:5px'>
-			<div style='display:inline-block; width:66px;'>Name: </div>
-			<div style='display:inline-block;'><input type='text' placeholder='Please set component name'/></div>
-		</div>
-		<div style='margin:5px'>
-			<div style='display:inline-block; width:66px;'>Enable: </div>
-			<div style='display:inline-block;'>
-				<label>
-				<input type='checkbox'/>
-				</label>
-			</div>
-		</div>
+	<div style='background-color:white;'>
+		<properties-editor id='infinicore_pe'></properties-editor>
 	</div>
 	`;
+	setTimeout(() => {
+		// console.log(document.getElementById("infinicore_pe"));
+		document.getElementById("infinicore_pe").setAttribute("config", JSON.stringify(compoenntDetail))
+	}, 1);
 }
