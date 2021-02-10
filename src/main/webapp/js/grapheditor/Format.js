@@ -570,9 +570,9 @@ Format.prototype.refresh = function()
 				arguments[0] && 
 				arguments[0].cells && 
 				arguments[0].cells.length && 
-				arguments[0].cells[0].style.match(/shape\=[^\.\=]+?\.infinicore\.flowdirector\.([^\,\;\?]+)/)
+				arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)
 			){
-				var cType = arguments[0].cells[0].style.match(/shape\=[^\.\=]+?\.infinicore\.flowdirector\.([^\,\;\?]+)/)[1];
+				var cType = arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
 				var label0 = label.cloneNode(false);
 				label0.style.borderLeftWidth = '0px';
 				mxUtils.write(label0, 'Properties');
@@ -6674,6 +6674,12 @@ mxUtils.extend(InfinicoreFormatPanel, BaseFormatPanel);
  */
 InfinicoreFormatPanel.prototype.init = function()
 {
+	var configHash = window.infinicore_config_editor.funcgroups.components.func;
+	var compoenntDetail = configHash[this.type];
+	if(!compoenntDetail){
+		this.container.innerHTML = ''
+		return;
+	}
 	this.container.innerHTML = `
 	<div>
 		<div style='margin:5px'>
