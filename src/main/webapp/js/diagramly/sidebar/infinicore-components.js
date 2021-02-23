@@ -3,7 +3,8 @@
  * InfiniCORE Networks Configuration Object Spec.
  * Machine Generated, do not modify
 **/
-    const InfiniCOREComponentsDesc = 
+
+    window.InfiniCOREComponentsDesc = 
         {
   "service_global": {
     "name": "service_global",

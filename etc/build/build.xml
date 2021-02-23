@@ -134,6 +134,7 @@
 				<file name="Sidebar-Infographic.js" />
 				<file name="Sidebar-Ios.js" />
 				<file name="Sidebar-Ios7.js" />
+				<file name="infinicore-components.js" />
 				<file name="Sidebar-Infinicore.js" />
 				<file name="Sidebar-Kubernetes.js" />
 				<file name="Sidebar-LeanMapping.js" />

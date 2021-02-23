@@ -468,6 +468,23 @@ Format.prototype.refresh = function()
 
 	if (graph.isSelectionEmpty())
 	{
+
+		///// !***************** add Infinicore domain setting panel
+		var label0 = label.cloneNode(false);
+		label0.style.borderLeftWidth = '0px';
+		mxUtils.write(label0, 'Domain Properties');
+		div.appendChild(label0);
+		var infPanel = div.cloneNode(false);
+		infPanel.style.display = 'none';
+		//// design panel
+		// this.panels.push(new StyleFormatPanel(this, ui, stylePanel));
+		var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, "service_global");
+		this.panels.push(panelObj);
+		this.container.appendChild(infPanel);
+
+		addClickHandler(label0, infPanel, idx++);
+		//////// !*****************
+
 		mxUtils.write(label, mxResources.get('diagram'));
 		label.style.borderLeftWidth = '0px';
 
@@ -538,6 +555,7 @@ Format.prototype.refresh = function()
 			
 			div.appendChild(label2);
 		}
+		
 	}
 	else if (graph.isEditing())
 	{
@@ -6674,7 +6692,7 @@ mxUtils.extend(InfinicoreFormatPanel, BaseFormatPanel);
  */
 InfinicoreFormatPanel.prototype.init = function()
 {
-	var configHash = window.infinicore_config_editor.funcgroups.components.func;
+	var configHash = window.InfiniCOREComponentsDesc;
 	var compoenntDetail = configHash[this.type];
 	if(!compoenntDetail){
 		this.container.innerHTML = ''
