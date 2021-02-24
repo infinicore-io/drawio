@@ -4,13 +4,13 @@
  * Machine Generated, do not modify
 **/
 
-    window.InfiniCOREComponentsDesc = 
+    window.InfiniCOREComponentsDesc =
         {
   "service_global": {
     "name": "service_global",
     "short_name": "Service Configuration",
     "desc": "Service Global Configuration",
-    "icon": "components.service.png",
+    "icon": "service_global.svg",
     "params": {
       "automation": {
         "key": "automation",
@@ -107,7 +107,7 @@
     "name": "ingressport",
     "short_name": "Ingress Port",
     "desc": "Interface Configuration",
-    "icon": "components.ingressport.png",
+    "icon": "ingress_port.svg",
     "params": {
       "port": {
         "key": "port",

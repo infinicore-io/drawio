@@ -2,7 +2,7 @@
 {
 	Sidebar.prototype.addInfinicorePalette = function()
 	{
-		
+
 		var compArr = [];
 		// var configArr = window.infinicore_config_editor.funcgroups.components.func;
 		var configArr = window.InfiniCOREComponentsDesc;
@@ -15,16 +15,15 @@
 
 			}
 			else{
-				var imgUrl =  STENCIL_PATH + '/clipart/' + element.icon;
-				// var imgUrl =  STENCIL_PATH + '/clipart/components.test.svg';
+				var imgUrl =  STENCIL_PATH + '/../images/infinicore/' + element.icon;
 				var newVTE = this.createVertexTemplateEntry(
-					'shape=image;infinicorecomponent='+element.name+';html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=1;aspect=fixed;image=' + imgUrl, 
-					64, 
-					64, 
-					'', 
-					element.short_name, 
-					false, 
-					null, 
+					'shape=image;infinicorecomponent='+element.name+';html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=1;aspect=fixed;image=' + imgUrl,
+					64,
+					64,
+					'',
+					element.short_name,
+					false,
+					null,
 					'infinicore ' + element.name + " " + element.short_name
 				);
 				compArr.push(newVTE);
@@ -40,8 +39,8 @@
 		this.addPaletteFunctions('infinicore', 'Infinicore Components', false, compArr);
 		this.setCurrentSearchEntryLibrary();
 	};
-	
 
-	
-	  
+
+
+
 })();
