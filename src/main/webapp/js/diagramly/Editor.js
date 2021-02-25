@@ -219,7 +219,7 @@
 	/**
 	 * Specifies if XML files should be compressed. Default is true.
 	 */
-	Editor.compressXml = true;
+	Editor.compressXml = false;
 
 	/**
 	 * Specifies global variables.
@@ -2069,6 +2069,22 @@
 		}
 	};
 
+
+	Editor.prototype.attachInfinicoreProperty = function(node){
+		// console.log(node);
+		if(node.childNodes && node.childNodes[0].tagName == "root"){
+			// console.log(InfinicoreFormatPanelConfig);
+			for (let index = 0; index < node.childNodes[0].childNodes.length; index++) {
+				const element = node.childNodes[0].childNodes[index];
+				if(element.id && InfinicoreFormatPanelConfig.data[element.id]){
+					var componentProps = InfinicoreFormatPanelConfig.data[element.id];
+					element.setAttribute("iprops", JSON.stringify(componentProps));
+					// console.log(componentProps);
+				}
+			}
+		}
+	}
+
 	/**
 	 * Adds persistent style to file
 	 */
@@ -2102,7 +2118,9 @@
 			
 			node.setAttribute('extFonts', strExtFonts.join('|'));
 		}
-		
+		if(this.attachInfinicoreProperty){
+			this.attachInfinicoreProperty(node);
+		}
 		return node;
 	};
 	

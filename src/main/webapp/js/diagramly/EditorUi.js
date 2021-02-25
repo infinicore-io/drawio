@@ -1723,6 +1723,29 @@
 	};
 
 	/**
+	 * restore infinicore component ui data
+	 * @param {*} node 
+	 */
+	EditorUi.prototype.restoreInfinicoreData = function(node){
+		if(node && node.children && node.children.length && node.children[0].children[0].tagName == "root"){
+			var compList = node.children[0].children[0].children;
+			for (var index = 0; index < compList.length; index++) {
+				var element = compList[index];
+				if(element.getAttribute("iprops")){
+					var propData = JSON.parse(element.getAttribute("iprops"));
+					// console.log(element.id, propData);
+					if(InfinicoreFormatPanelConfig){
+						InfinicoreFormatPanelConfig.data[element.id] = propData;
+					}
+					
+				}
+			}
+			// JSON.parse(element.getAttribute("iprops"))
+		}
+		
+	}
+
+	/**
 	 * 
 	 */
 	EditorUi.prototype.setFileData = function(data)
@@ -1806,6 +1829,8 @@
 			
 			// Avoids scroll offset when switching page
 			this.editor.setGraphXml(node);
+
+			this.restoreInfinicoreData(node);
 			
 			// Avoids duplicate parsing of the XML stored in the node
 			if (this.currentPage != null)

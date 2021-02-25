@@ -128,6 +128,14 @@ Format.prototype.initSelectionState = function()
 		table: false, cell: false, row: false, movable: true, rotatable: true, stroke: true};
 };
 
+
+Format.prototype.updateInfinicoreStateData = function(result, cell){
+	if(cell && cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)){
+		result['isInfinicoreComponent'] = true;
+	}
+
+}
+
 /**
  * Returns information about the current selection.
  */
@@ -247,6 +255,7 @@ Format.prototype.updateSelectionStateForCell = function(result, cell, cells)
 			}
 		}
 	}
+	this.updateInfinicoreStateData(result, cell);
 };
 
 /**
@@ -591,6 +600,7 @@ Format.prototype.refresh = function()
 				arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)
 			){
 				var cType = arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
+				var cellId = arguments[0].cells[0].id;
 				var label0 = label.cloneNode(false);
 				label0.style.borderLeftWidth = '0px';
 				mxUtils.write(label0, 'Properties');
@@ -599,7 +609,7 @@ Format.prototype.refresh = function()
 				infPanel.style.display = 'none';
 				//// design panel
 				// this.panels.push(new StyleFormatPanel(this, ui, stylePanel));
-				var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, cType);
+				var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, cType, cellId);
 				this.panels.push(panelObj);
 				this.container.appendChild(infPanel);
 	
@@ -6678,10 +6688,24 @@ DiagramFormatPanel.prototype.destroy = function()
 /**
  * Adds the infinicore menu items to the given menu and parent.
  */
-InfinicoreFormatPanel = function(format, editorUi, container, type)
+InfinicoreFormatPanel = function(format, editorUi, container, type, cellId)
 {
+	// format.createSelectionState = function()
+	// {
+	// 	var cells = this.editorUi.editor.graph.getSelectionCells();
+	// 	var result = this.initSelectionState();
+		
+	// 	for (var i = 0; i < cells.length; i++)
+	// 	{
+			
+	// 		this.updateSelectionStateForCell(result, cells[i], cells);
+	// 	}
+		
+	// 	return result;
+	// };
 	BaseFormatPanel.call(this, format, editorUi, container);
 	this.type = type;
+	this.cellId = cellId;
 	this.init();
 };
 
@@ -6704,7 +6728,24 @@ InfinicoreFormatPanel.prototype.init = function()
 	</div>
 	`;
 	setTimeout(() => {
-		// console.log(document.getElementById("infinicore_pe"));
+		if(!document.getElementById("infinicore_pe")){
+			return;
+		}
 		document.getElementById("infinicore_pe").setAttribute("config", JSON.stringify(compoenntDetail))
+		document.getElementById("infinicore_pe").setAttribute("cellid", this.cellId);
+		if(InfinicoreFormatPanelConfig.data[this.cellId]){
+			document.getElementById("infinicore_pe").setAttribute("properties", JSON.stringify(InfinicoreFormatPanelConfig.data[this.cellId]));
+		}
+		document.getElementById("infinicore_pe").addEventListener("propchange", (evt)=>{
+			if(evt.detail && evt.detail.id){
+				InfinicoreFormatPanelConfig.data[evt.detail.id] = evt.detail.properties;
+			}
+		})
 	}, 1);
 }
+
+InfinicoreFormatPanelConfig = {
+	data:{}
+};
+
+
