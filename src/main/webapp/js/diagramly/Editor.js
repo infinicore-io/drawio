@@ -2085,6 +2085,15 @@
 		}
 	}
 
+	Editor.prototype.attachInfinicoreRootProperty = function(node){
+		if(node.childNodes && node.childNodes[0].tagName == "root"){
+			if(InfinicoreFormatPanelConfig.data['domain_global']){
+				var componentProps = InfinicoreFormatPanelConfig.data['domain_global'];
+				node.childNodes[0].setAttribute("iprops", JSON.stringify(componentProps));
+			}
+		}
+	}
+
 	/**
 	 * Adds persistent style to file
 	 */
@@ -2120,6 +2129,9 @@
 		}
 		if(this.attachInfinicoreProperty){
 			this.attachInfinicoreProperty(node);
+		}
+		if(this.attachInfinicoreRootProperty){
+			this.attachInfinicoreRootProperty(node);
 		}
 		return node;
 	};

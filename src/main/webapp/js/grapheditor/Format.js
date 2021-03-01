@@ -487,7 +487,7 @@ Format.prototype.refresh = function()
 		infPanel.style.display = 'none';
 		//// design panel
 		// this.panels.push(new StyleFormatPanel(this, ui, stylePanel));
-		var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, "service_global");
+		var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, "service_global", 'domain_global');
 		this.panels.push(panelObj);
 		this.container.appendChild(infPanel);
 
@@ -592,6 +592,9 @@ Format.prototype.refresh = function()
 		}
 		else
 		{
+			var flagIsInfinicoreComp = false;
+			var cType;
+			var cellId;
 			////////////////////// ADD INFINICORE CONTENT ////////////////////
 			if(
 				arguments[0] && 
@@ -599,8 +602,18 @@ Format.prototype.refresh = function()
 				arguments[0].cells.length && 
 				arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)
 			){
-				var cType = arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
-				var cellId = arguments[0].cells[0].id;
+				flagIsInfinicoreComp = true;
+				cType = arguments[0].cells[0].style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
+				cellId = arguments[0].cells[0].id;
+				
+			}
+
+			if(arguments[0].constructor == mxGraphModel && arguments[1].properties.changes[0].cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)){
+				flagIsInfinicoreComp = true;
+				cType = arguments[1].properties.changes[0].cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
+				cellId = arguments[1].properties.changes[0].cell.id;
+			}
+			if(flagIsInfinicoreComp){
 				var label0 = label.cloneNode(false);
 				label0.style.borderLeftWidth = '0px';
 				mxUtils.write(label0, 'Properties');
@@ -612,7 +625,7 @@ Format.prototype.refresh = function()
 				var panelObj = new InfinicoreFormatPanel(this, ui, infPanel, cType, cellId);
 				this.panels.push(panelObj);
 				this.container.appendChild(infPanel);
-	
+				
 				addClickHandler(label0, infPanel, idx++);
 			}
 			
