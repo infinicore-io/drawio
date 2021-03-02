@@ -608,7 +608,7 @@ Format.prototype.refresh = function()
 				
 			}
 
-			if(arguments[0].constructor == mxGraphModel && arguments[1].properties.changes[0].cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)){
+			if(arguments[0] && arguments[0].constructor == mxGraphModel && arguments[1].properties.changes[0].cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)){
 				flagIsInfinicoreComp = true;
 				cType = arguments[1].properties.changes[0].cell.style.match(/infinicorecomponent\=([^\,\;\?]+)/)[1];
 				cellId = arguments[1].properties.changes[0].cell.id;
@@ -6753,6 +6753,8 @@ InfinicoreFormatPanel.prototype.init = function()
 			if(evt.detail && evt.detail.id){
 				InfinicoreFormatPanelConfig.data[evt.detail.id] = evt.detail.properties;
 			}
+			var ui = this.editorUi;
+			ui.fireEvent(new mxEventObject('infinicoreComponentChange'));
 		})
 	}, 1);
 }

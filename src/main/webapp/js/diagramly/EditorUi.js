@@ -11711,6 +11711,7 @@
 					this.addListener('gridEnabledChanged', changeListener);
 					this.addListener('guidesEnabledChanged', changeListener);
 					this.addListener('pageViewChanged', changeListener);
+					this.addListener('infinicoreComponentChange', changeListener);
 				}
 				
 				// Sends the bounds of the graph to the host after parsing

@@ -6,8 +6,6 @@
 		var compArr = [];
 		// var configArr = window.infinicore_config_editor.funcgroups.components.func;
 		var configArr = window.InfiniCOREComponentsDesc;
-		//log(JSON.stringify(window.InfiniCOREComponentsDesc));
-		
 		for (var key in configArr) {
 			var element = configArr[key];
 			if(!element.name){
